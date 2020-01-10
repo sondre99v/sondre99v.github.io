@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>sondre99v</title>
+		<link rel="stylesheet" type="text/css" href="style.css" title="style" />
+	</head>
+
+	<body>
+		<div id="main">
+			<div id="header">
+				<div id="logo">
+					<div id="logo_text">
+						<h1><a href="index.html">sondre99v</a></h1>
+						<h2>Sondre Ninive Andersen<br/>
+						Projects and Interests</h2>
+					</div>
+				</div>
+				<div id="menubar">
+					<ul id="menu">
+						<li><a href="index.html">Home</a></li>
+						<li class="selected"><a href="electronics.html">Electronics</a></li>
+						<li><a href="programming.html">Programming</a></li>
+						<li><a href="music.html">Music</a></li>
+						<li><a href="other_stuff.html">Other Stuff</a></li>
+					</ul>
+				</div>
+			</div>
+			<div id="site_content">
+				<div id="content">
+					<h1>Tiny Synth</h1>
+					<p>
+					As PCB manufacturing has become very affordable, lots of people have made various buisiness cards from PCBs. <a href="https://mitxela.com/projects/stylocard">This one</a> in particular that caught my attention. The idea of having an actually playable buisiness card seemed very cool.
+					</p><p>
+					However, that project, while very cool, left something to be desired for me. Yes, it was a keyboard, but to hear anything you need to connect it to a computer over USB, and load up MIDI-software. Also you need an alligator clip to use as a stylus. I'd also seen several people make cards with a slot for a coin-cell battery milled in, which could be used to power the PCB, so I started thinking about how to make a playable card, that would be completly self contained. The card would have to include:
+					</p>
+					<ul>
+						<li>A microcontroller with at least enough power to implement a basic synthesizer</li>
+						<li>A battery slot to accept a coin-cell battery</li>
+						<li>A speaker loud enough to hear</li>
+						<li>A stylus that comes with the card</li>
+					</ul>
+					<p>
+					Skipping over some solitary brainstorming about the details of how to implement it, here is the result:
+					</p>
+					<image src="projects/tinysynth/thumbnail.jpg"/>
+					<p>
+					I ended up using the ATTINY817 from Microchip. Mostly because I had some prior experience with this chip, and had a dev-kit on hand, but it was quite suitable. It has an internal 8-bit DAC, so the sound samples can be synthesized by the chip directly. It also has enough processing power that I was able to implement a dual-oscillator configurable synthesizer. The stylus can be used to play the keyboard, and also to operate the small patch panel above it, allowing configuration of the patch. The configurable options are:
+					</p>
+					<ul>
+						<li>Oscillator 1, pitch. Cycles between three octaves.</li>
+						<li>Oscillator 1, waveform. Toggles between sawtooth and squarewave. The LED indicates the currently selected setting.</li>
+						<li>Envelope slow rise. If enabled, the volume increases gradually when a key is "pressed".</li>
+						<li>Envelope slow fall. If enabled, the volume decreases gradually after a key is released.</li>
+						<li>Oscillator 2, pitch. Cycles between three octaves, as well as the fourth and fifth in the first octave.</li>
+						<li>Oscillator 2, waveform. Same function as the waveform-button for oscillator 1.</li>
+						<li>Slide. If enabled, the pitch will glide smoothly between tones.</li>
+						<li>Effect. Cycles between three different effects (or no effect). "Filter" applies a low-pass filter to the output, controlled by an envelope that slowly closes the filter. "Hit!" adds a white-noise burst to the attack of each note. "Shake" applies a tremolo effect, modulating the pitch with a sine wave LFO.</li>
+					</ul>
+					<p>
+					After the initial prototyping, started designing a PCB, and writing the final code. I wanted to add as much configurability to the synth, but keep the interface simple. This conflict caused me to spend way to much time implementing software-features that are impossible to access with the limited patch panel. As a result, the software is much more elaborate and modular than it needs to be. It includes stand-alone modules for multiple keyboards, envelope-generators, low-frequency oscillators (with square, triangle, or sinewave), five different waveforms for the tone oscillators, and more. The code can be found <a href="https://github.com/sondre99v/TinySynth">here</a>.
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
